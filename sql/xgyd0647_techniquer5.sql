@@ -58,13 +58,6 @@ CREATE TABLE `journaux` (
   `okConnexion` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `journaux`
---
-
-INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`, `dateHeure`, `okConnexion`) VALUES
-(1, '::1', 17, 'Admin', '0', '2024-03-28 23:45:03', 1),
-(2, '::1', 17, 'Admin', '0', '2024-03-28 23:46:41', 1);
 
 -- --------------------------------------------------------
 
@@ -239,16 +232,7 @@ CREATE TABLE `users` (
   `dateCreation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `users`
---
 
-INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(17, 'KcYeOLVQeMHDctcX', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Admin', '$2y$10$.MBGNK6MhRwaJun7E3Xr7O3jV.CSaV9ES0tLI/Jk7yBPbnPs./SNS', 1, 2, '2024-03-28 23:40:12'),
-(18, '5066406754494402', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Gestionnaires', '$2y$10$1sCFaBhZFtkGvAzATI11NOT/qk95vqaFdP.vhu2304IPht.RXyEEu', 1, 3, '2024-03-28 23:44:48'),
-(19, '4056125467144962', 'christophe.calmes@laplateforme.io', 'Christophe', 'Calmes', 'Visiteur', '$2y$10$Y2O5psXKc41IJAhWenyNXu2RxdeGgMiSEsV6UYUBRap4LyF1hQ2US', 1, 1, '2024-03-28 23:46:29');
-
---
 -- Index pour les tables déchargées
 --
 
