@@ -4,11 +4,11 @@
   let open = false;
   jeckyl.addEventListener('click', function(){
     if(!open) {
-      jeckyl.innerText = "Fermer le formulaire";
+      jeckyl.innerText = "Close form";
       magax.style.display = "block";
       open = true;
     } else {
-      jeckyl.innerText = "Ouvrir le formulaire";
+      jeckyl.innerText = "Open form";
       magax.style.display = "none";
       open = false;
     }
