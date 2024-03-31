@@ -48,4 +48,25 @@ Class SQLuniversesAndFactions {
                 ['prep'=>':valid', 'variable'=> $valid], ];
         return ActionDB::select($select, $param, 1);
     }
+    protected function numberOfUniversDashboard ($valid) {
+        $select = "SELECT COUNT(`id`) AS `numberOfUnivers` FROM `universes` WHERE `valid` = :valid;";
+        $param = [['prep'=>':valid', 'variable'=> $valid]];
+        $data = ActionDB::select($select, $param, 1);
+        return $data[0]['numberOfUnivers'];
+    }
+    protected function totalNumberOfUniversDashboard () {
+        $select = "SELECT COUNT(`id`) AS `numberOfUnivers` FROM `universes`;";
+        $data = ActionDB::select($select, [], 1);
+        return $data[0]['numberOfUnivers'];
+    }
+    protected function avgTLUnivers () {
+        $select = "SELECT  AVG(`NT`) AS `averageTL` FROM `universes` WHERE `valid` = 1;";
+        $data = ActionDB::select($select, [], 1);
+        return $data[0]['averageTL'];
+    }
+    protected function totalUser () {
+        $select = "SELECT COUNT(`idUser`) AS `numberOfMembre` FROM `users` WHERE `valide` = 1 AND `role` = 1;";
+        $data = ActionDB::select($select, [], 0);
+        return $data[0]['numberOfMembre'];
+    }
 }

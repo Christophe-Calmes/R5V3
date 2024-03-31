@@ -1,18 +1,19 @@
 /*Présentation Graine*/
 /*Variables CSS*/
-/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');*/
-@font-face {
-  font-family: "ANNA ITC TT REGULAR";
-  src: url("fonts/annai.ttf") format("woff2"),
-       url("fonts/annai.woff2") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-family: "FREEHAND 471 REGULAR";
-  src: url("fonts/Freehand471BT-Regular.woff2") format("woff2"),
-       url("fonts/Freehand471BT-Regular.woff2") format("woff");
-  font-weight: normal;
+@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+.gruppo-regular {
+  font-family: "Gruppo", sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
+.open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
 :root {
   /*Variables Button*/
   --main-background-color: #c9c9c9;
@@ -34,10 +35,10 @@
   --main-radius: 0.5em;
   --main-shadow: 2px 4px 5px 1px #151515;
   /*--font-family: "Bebas Neue", sans-serif;*/
-  --font-family: "ANNA ITC TT REGULAR", sans-serif;
-  --font-family-titleEvent: "FREEHAND 471 REGULAR", sans-serif;
+  --font-family: "Open Sans", sans-serif;
+  --font-family-titleEvent: "Gruppo", sans-serif;
   --font-weight: 400;
-  --font-style: italic;
+  --font-style: normal;
   --color-title: #DA1401;
   --color-subTitle: #4585B5;
   /*Variable color*/
