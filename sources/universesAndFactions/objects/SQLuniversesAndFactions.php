@@ -12,6 +12,11 @@ Class SQLuniversesAndFactions {
         WHERE `id`=:id AND`id_Author`=:idUser;";
         return ActionDB::access($update, $param, 1);
     }
+    public function deleteUniverseByAdmin ($param) {
+        $update ="DELETE FROM `universes`
+        WHERE `id`=:id;";
+        return ActionDB::access($update, $param, 1);
+    }
     public function numberOfUnivers ($id_Author) {
         $countUnivers = "SELECT COUNT(`id`) AS `numberOfUniverses` 
         FROM `universes` 
@@ -40,7 +45,7 @@ Class SQLuniversesAndFactions {
     protected function selectUniversOfOneUser($id_Author, $valid) {
         $set = [['champs'=>'id_Author', 'operator'=>'=', 'param'=>':id_Author'],
                 ['champs'=>'valid', 'operator'=>'=', 'param'=>':valid']];
-        $fields = ['id','name_univers', 'NT', 'date_Creat', 'date_Update', 'valid'];
+        $fields = ['id','name_Univers', 'NT', 'date_Creat', 'date_Update', 'valid'];
         $table = 'universes';
         $sql = new SelectRequest($fields, $table, $set);
         $select = $sql->requestSelect(0);
@@ -54,7 +59,7 @@ Class SQLuniversesAndFactions {
         $data = ActionDB::select($select, $param, 1);
         return $data[0]['numberOfUnivers'];
     }
-    protected function totalNumberOfUniversDashboard () {
+    public function totalNumberOfUniversDashboard () {
         $select = "SELECT COUNT(`id`) AS `numberOfUnivers` FROM `universes`;";
         $data = ActionDB::select($select, [], 1);
         return $data[0]['numberOfUnivers'];
@@ -68,5 +73,14 @@ Class SQLuniversesAndFactions {
         $select = "SELECT COUNT(`idUser`) AS `numberOfMembre` FROM `users` WHERE `valide` = 1 AND `role` = 1;";
         $data = ActionDB::select($select, [], 0);
         return $data[0]['numberOfMembre'];
+    }
+    protected function selectOnePageOfUniverses($premier, $parPage) {
+        $select = "SELECT `id`, `name_Univers`, 
+        `NT`, `id_Author`, `date_Creat`, 
+        `date_Update`, `valid`, `login`
+        FROM `universes`
+        INNER JOIN `xgyd0647_techniquer5`.`users` ON idUser = `id_Author`
+        ORDER BY `login`LIMIT {$premier}, {$parPage};";
+        return ActionDB::select($select, [], 1);
     }
 }

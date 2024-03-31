@@ -2,23 +2,38 @@
 require('sources/universesAndFactions/objects/SQLuniversesAndFactions.php');
 require('functions/functionDateTime.php');
 Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
+    private $yes;
+
+    public function __construct()
+    {
+        $this->yes = ['No', 'Yes'];
+    }
     public function displayAndAdminOneUnivers ($data, $idNav, $message) {
         echo '<div class="item">';
             echo'<ul class="listeProfil sizeFont">';
-                echo '<li class="subTitleSite">Name : '.$data['name_univers'].'</li>';
+                echo '<li class="subTitleSite">Name : '.$data['name_Univers'].'</li>';
                 echo '<li>Creation date : '.brewingDate($data['date_Creat']).'</li>';
                 echo '<li>Technologic level (TL) : '.$data['NT'].' </li>';
+                echo '<li>Statues : '.$this->yes[$data['valid']].' </li>';
             echo '</ul>';
-            echo '<form action="'.encodeRoutage(62).'" method="post">
-                    <input type="hidden" name="id" value="'.$data['id'].'"/>
-                    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>
-                </form>';
-            if($data['valid'] == 0) {
-                echo '<form action="'.encodeRoutage(63).'" method="post">
-                        <input type="hidden" name="id" value="'.$data['id'].'"/>
-                    <button class="buttonForm red" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+            if($_SESSION['role']== 1) {
+                echo '<form action="'.encodeRoutage(62).'" method="post">
+                <input type="hidden" name="id" value="'.$data['id'].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>
             </form>';
+        if($data['valid'] == 0) {
+            echo '<form action="'.encodeRoutage(63).'" method="post">
+                    <input type="hidden" name="id" value="'.$data['id'].'"/>
+                <button class="buttonForm red" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+            </form>';
+                }
             }
+            if($_SESSION['role'] == 3) {
+                echo '<form action="'.encodeRoutage(66).'" method="post">
+                    <input type="hidden" name="id" value="'.$data['id'].'"/>
+                    <button class="buttonForm red" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                </form>';
+                }
         echo '</div>';
     }
 
@@ -56,5 +71,13 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
             echo '<li>Average number of valid universes per user : '.round(($validUniverses/$numberOfMembre),2).'</li>';
             echo '<li>Average number of invalid universes per user : '.round(($invalidUniverses/$numberOfMembre),2).'</li>';
         echo '</ul>';
+    }
+    public function paginationUnivers ($premier, $parPage, $idNav) {
+        $dataUnivers = $this->selectOnePageOfUniverses($premier, $parPage);
+        echo '<article class="gallery">';
+        foreach($dataUnivers as $value) {
+            $this->displayAndAdminOneUnivers ($value, $idNav, 'Administration');
+        }
+        echo '</article>';
     }
 }
