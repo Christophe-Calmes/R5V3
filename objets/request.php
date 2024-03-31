@@ -71,6 +71,7 @@ Class InsertRequest pour toute les requêtes Insert
 Class InsertRequest {
   public function requestInsert($post, $secure, $table, $db = 0) {
     $this->tables = $table;
+    
     // $secure == nombre de champs maximum différent entre les attendus et ceux valides
     // Extraction des champs
     $security = false;
@@ -107,7 +108,7 @@ Class InsertRequest {
       return $sql;
     } else {
     
-      header('location:../index.php?message=echec de l\'enregistrement');
+      return header('location:../index.php?message=echec de l\'enregistrement');
     }
 
   }

@@ -35,8 +35,8 @@ function doublon ($select) {
   if(!empty($doublon)) {
     echo '<p>Doublon détecté dans le clés. Changer le trousseau.</p>';
     echo '<ul>';
-    foreach ($doublon as $key => $value) {
-      echo '<li>nombre de doublon :'.$value['nbr_doublon'].' Doublon pointé :'.$value['routageToken'].'</li>';
+    foreach ($doublon as $value) {
+      echo '<li>nombre de doublon :'.$value['nbr_doublon'].' Doublon pointé :'.$value['targetRoute'].'</li>';
     }
     echo'</ul>';
   } else {
@@ -47,13 +47,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   require 'functions/functionToken.php';
   $select = "SELECT `idForm`, `route` FROM `routageForm` WHERE `valide` = 1";
   $listeIdNav = ActionDB::select($select, []);
-    foreach ($listeIdNav as $key => $value) {
-      $update = "UPDATE `routageForm` SET `route`= :route WHERE `idForm` = :idForm";
-      $param = [['prep'=>':route', 'variable'=>IntToken(rand(14,20))], ['prep'=>':idForm', 'variable'=>$value['idForm']]];
+    foreach ($listeIdNav as $value) {
+      $update = "UPDATE `routageForm` SET `route`= :targetRoute WHERE `idForm` = :idForm";
+      $param = [['prep'=>':targetRoute', 'variable'=>IntToken(rand(14,20))], ['prep'=>':idForm', 'variable'=>$value['idForm']]];
       ActionDB::access($update, $param);
     }
   echo '<p>Serie de clé de routage interne modifié.</p>';
-  $select = "SELECT COUNT(`targetRoute`) AS `nbr_doublon`, `targetRoute` FROM `navigation` GROUP BY `targetRoute` HAVING COUNT(`targetRoute`) > 1";
+  $select = "SELECT COUNT(`route`) AS `nbr_doublon`, `route` FROM `routageForm` GROUP BY `route` HAVING COUNT(`route`) > 1";
   doublon($select);
 }
  ?>
