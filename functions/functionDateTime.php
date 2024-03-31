@@ -13,6 +13,22 @@ setlocale(LC_ALL, "fr_FR");
   );
   return $formatter->format($dateDay);
 }
+function brewingDate($data) {
+  if ($data === null) {
+    return 'No date';
+  }
+
+  // Définissez le paramètre régional pour l'anglais américain
+  setlocale(LC_ALL, 'en_US.UTF-8');
+
+  $dateDay = new DateTime($data);
+  $formatter = new IntlDateFormatter(
+    'en_US', // Locale pour l'anglais américain
+    IntlDateFormatter::FULL,
+    IntlDateFormatter::NONE
+  );
+  return $formatter->format($dateDay);
+}
 function heure($data) {
   $time = $data;
   $heure = substr($time,0,2);

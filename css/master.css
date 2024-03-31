@@ -234,6 +234,9 @@ a {
   list-style: none;
   text-align: left;
 }
+.sizeFont {
+  font-size: 0.8em;
+}
 /*Formulaire*/
 .formulaireClassique {
   display: flex;

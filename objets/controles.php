@@ -18,21 +18,20 @@ class Controles {
     $idUser = ActionDB::select($select, $param);
     return $idUser[0]['idUser'];
   }
+
   public function controleInteger($data) {
-    $valueOption = intval($data);
-    if(is_integer($valueOption)) {
+    if (ctype_digit(strval($data))) {
       return true;
-    } else {
+  } else {
       return false;
-    }
+  }
   }
   public function controleIntegerPK($data) {
-    $pk = intval($data);
-    if($pk != 0) {
+    if (ctype_digit(strval($data))) {
       return true;
-    } else {
+  } else {
       return false;
-    }
+  }
   }
   function __destruct() {
   }

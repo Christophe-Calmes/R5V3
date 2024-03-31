@@ -1,9 +1,21 @@
 <?php
 Class SQLuniversesAndFactions {
+    public function updateValidStatusUniverse ($param) {
+        $update ="UPDATE `universes`
+        SET `valid` = CASE WHEN `valid` = 1 THEN 0 ELSE 1 END,
+        `date_Update` = CURRENT_TIMESTAMP
+        WHERE `id`=:id AND`id_Author`=:idUser;";
+        return ActionDB::access($update, $param, 1);
+    }
+    public function deleteInvalidStatusUniverse ($param) {
+        $update ="DELETE FROM `universes`
+        WHERE `id`=:id AND`id_Author`=:idUser;";
+        return ActionDB::access($update, $param, 1);
+    }
     public function numberOfUnivers ($id_Author) {
         $countUnivers = "SELECT COUNT(`id`) AS `numberOfUniverses` 
         FROM `universes` 
-        WHERE `id_Author` = :id_Author AND `valid` = 1";
+        WHERE `id_Author` = :id_Author";
         $param = [['prep'=>':id_Author', 'variable'=> $id_Author]];
         $countUnivers = ActionDB::select($countUnivers, $param, 1);
         if($countUnivers[0]['numberOfUniverses'] >= 5) {
@@ -25,13 +37,15 @@ Class SQLuniversesAndFactions {
             return false;
         }
     }
-    protected function selectUniversOfOneUser($id_Author) {
-        $set = [['champs'=>'id_Author', 'operator'=>'=', 'param'=>':id_Author']];
-        $fields = ['id','name_univers', 'NT', 'date_Creat'];
+    protected function selectUniversOfOneUser($id_Author, $valid) {
+        $set = [['champs'=>'id_Author', 'operator'=>'=', 'param'=>':id_Author'],
+                ['champs'=>'valid', 'operator'=>'=', 'param'=>':valid']];
+        $fields = ['id','name_univers', 'NT', 'date_Creat', 'date_Update', 'valid'];
         $table = 'universes';
         $sql = new SelectRequest($fields, $table, $set);
         $select = $sql->requestSelect(0);
-        $param = [['prep'=>':id_Author', 'variable'=> $id_Author]];
+        $param = [['prep'=>':id_Author', 'variable'=> $id_Author],
+                ['prep'=>':valid', 'variable'=> $valid], ];
         return ActionDB::select($select, $param, 1);
     }
 }
