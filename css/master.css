@@ -51,10 +51,15 @@
   --color-darkGreen: #03470D;
   --color-orange: #cc3915;
   --color-neutralBone: #fdfdf8;
+  --main-itemBackgroundColor: #eff9ff;
 
 }
 /*Presentation basique*/
 body {
+  background-image: repeating-linear-gradient(0deg, hsl(87,0%,5%) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
+  transparent 0px, transparent 30px),linear-gradient(90deg, hsl(87,0%,5%),hsl(87,0%,5%));12px),
+  linear-gradient(90deg, rgb(42,0,0),rgb(42,0,0));
+  color: var(--color-neutralBone);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -357,7 +362,7 @@ select:disabled {
     min-height: auto;
     min-width: auto;
     padding: 0.5em;
-    background: var(--color-chair);
+    background: var(--main-itemBackgroundColor);
     color: rgb(32, 32, 32);
     border-radius: var(--main-radiusInput);
     display: inline;

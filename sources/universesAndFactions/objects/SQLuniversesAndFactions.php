@@ -83,4 +83,17 @@ Class SQLuniversesAndFactions {
         ORDER BY `login`LIMIT {$premier}, {$parPage};";
         return ActionDB::select($select, [], 1);
     }
+    protected function selectOneUnivers ($param) {
+        $select = "SELECT `id`, `name_Univers`, `NT`, `id_Author`, `date_Creat`, `date_Update`, `valid` 
+        FROM `universes` 
+        WHERE `id_Author` = :idUser AND`id`=:id";
+        return ActionDB::select($select, $param, 1);
+    }
+    public function updateFileUniverse ($param) {
+        $update = "UPDATE `universes` 
+        SET `name_Univers`= :name_Univers,`NT`=:NT, `date_Update`=CURRENT_TIMESTAMP 
+        WHERE `id` = :idUniverse AND `id_Author` = :idUser;";
+        print_r($param);
+        return ActionDB::access($update, $param, 1);
+    }
 }

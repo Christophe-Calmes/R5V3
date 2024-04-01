@@ -17,6 +17,7 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
                 echo '<li>Statues : '.$this->yes[$data['valid']].' </li>';
             echo '</ul>';
             if($_SESSION['role']== 1) {
+                echo '<a href="'.findTargetRoute(146).'&idUniverse='.$data['id'].'">Update</a>';
                 echo '<form action="'.encodeRoutage(62).'" method="post">
                 <input type="hidden" name="id" value="'.$data['id'].'"/>
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>
@@ -79,5 +80,23 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
             $this->displayAndAdminOneUnivers ($value, $idNav, 'Administration');
         }
         echo '</article>';
+    }
+    public function updateUniverse ($param, $idNav) {
+        $data = $this->selectOneUnivers ($param);
+        if(!empty($data)) {
+    echo  '<h2 class="subTitleSite">Change '.$data[0]['name_Univers'].'</h2>';
+    echo '<form class="formulaireClassique" action="'.encodeRoutage(67).'" method="post">
+            <label for="name_Univers">Change name of your universe</label>
+            <input type="text" id="name_Univers" name="name_Univers" value="'.$data[0]['name_Univers'].'"/>
+            <label for="NT">Technology level</label>
+            <input type="number" id="NT"  name="NT" min="1" max="12" value="'.$data[0]['NT'].'" />
+            <p>Creation date : '.brewingDate($data[0]['date_Creat']).'</p>
+            <p>Update date : '.brewingDate($data[0]['date_Update']).'</p>
+            <input type="hidden" name="idUniverse" value="'.$data[0]['id'].'"/> 
+            <button type="submit" name="idNav" value="'.$idNav.'">Update</button>
+            </form>';
+        } else {
+            echo '<h2>No find your universe</h2>';
+        }
     }
 }
