@@ -231,6 +231,9 @@ a {
 .open{
   width: 15vw;
 }
+.listNoStyle {
+  list-style: none;
+}
 
 .listClass {
   list-style: none;
@@ -258,7 +261,7 @@ input, label {
   padding: 0.3em;
 }
 input, textarea {
-  background-color: var(--color-chair);
+  background-color: var(--color-neutralBone);
   border-radius: var(--main-radiusInput);
 
 }

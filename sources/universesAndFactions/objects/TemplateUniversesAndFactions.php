@@ -99,4 +99,7 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
             echo '<h2>No find your universe</h2>';
         }
     }
+    public function setNumberOfUniversCreatingByOneUser () {
+        echo '<p>You can create up to  '.$this->numberUniverseByUser.' universes.</p>';
+    }
 }

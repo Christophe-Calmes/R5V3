@@ -1,4 +1,5 @@
 <?php
-$dataUnivers = $universe->displayUniversOfConnectedUser ($id_Author, 1, $idNav);
-$dataUnivers = $universe->displayUniversOfConnectedUser ($id_Author, 0, $idNav);
+$universe->setNumberOfUniversCreatingByOneUser ();
+$universe->displayUniversOfConnectedUser ($id_Author, 1, $idNav);
+$universe->displayUniversOfConnectedUser ($id_Author, 0, $idNav);
 

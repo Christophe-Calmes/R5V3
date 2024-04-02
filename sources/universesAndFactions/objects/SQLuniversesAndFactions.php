@@ -1,5 +1,12 @@
 <?php
 Class SQLuniversesAndFactions {
+    protected $numberUniverseByUser = 5;
+
+    public function __construct()
+    {
+        $this->numberUniverseByUser;
+    }
+
     public function updateValidStatusUniverse ($param) {
         $update ="UPDATE `universes`
         SET `valid` = CASE WHEN `valid` = 1 THEN 0 ELSE 1 END,
@@ -23,7 +30,8 @@ Class SQLuniversesAndFactions {
         WHERE `id_Author` = :id_Author";
         $param = [['prep'=>':id_Author', 'variable'=> $id_Author]];
         $countUnivers = ActionDB::select($countUnivers, $param, 1);
-        if($countUnivers[0]['numberOfUniverses'] >= 5) {
+        
+        if($countUnivers[0]['numberOfUniverses'] >= $this->numberUniverseByUser) {
             return false;
         } else {
             return true;
@@ -96,4 +104,6 @@ Class SQLuniversesAndFactions {
         print_r($param);
         return ActionDB::access($update, $param, 1);
     }
+  
+    
 }
