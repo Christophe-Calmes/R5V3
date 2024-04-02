@@ -58,9 +58,12 @@ Class SQLFactions  {
         }
        
     }
-    protected function getFactionOfOneUnivers ($valid) {
+    protected function getIdUser () {
         $checkId = new Controles ();
-        $idUser = $checkId->idUser($_SESSION);
+        return $checkId->idUser($_SESSION);
+    }
+    protected function getFactionOfOneUnivers ($valid) {
+        $idUser = $this->getIdUser();
         $select = "SELECT universes.name_Univers, factions.name_Factions, factions.id AS idFaction
         FROM universes
         INNER JOIN factions ON universes.id = id_Universe
@@ -69,5 +72,14 @@ Class SQLFactions  {
         $param = [['prep'=>':id_Author', 'variable'=>$idUser], 
                     ['prep'=>':valid', 'variable'=> $valid],];
         return ActionDB::select($select, $param , 1);
+    }
+    protected function getOneFaction ($idFaction) {
+        $idUser = $this->getIdUser();
+        $param = [['prep'=>':idUser', 'variable'=>$idUser], 
+                  ['prep'=>':idFaction', 'variable'=>$idFaction]];
+        $select = "SELECT `id`, `name_Factions`, `id_Author`, `id_Universe`, `date_Creat`, `date_Update`, `valid` 
+                    FROM `factions` 
+                    WHERE `id` =:idFaction AND `id_Author`=:idUser;";
+        return ActionDB::select($select, $param, 1);
     }
 }

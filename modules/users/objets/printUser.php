@@ -5,7 +5,7 @@ private $yes;
   public function __construct() {
     $ROLES = $this->getRoles();
     $roles = array();
-    foreach ($ROLES as $key => $value) {
+    foreach ($ROLES as $value) {
       array_push($roles, ['name'=>$value['typeRole'], 'role'=>$value['accreditation']]);
     }
     $this->role = $roles;
@@ -25,7 +25,7 @@ private $yes;
             <th>Date d\'inscription</th>
             <th>Modifier</th>
           </tr>';
-          foreach ($variable as $key => $value) {
+          foreach ($variable as $value) {
             echo '<tr>
                     <td>'.$value['login'].'</td>
                     <td>'.brassageDate($value['dateCreation']).'</td>
@@ -65,10 +65,11 @@ private $yes;
   public function printProfilUser ($variable) {
       echo '<ul class="listeProfil">';
       echo '<li><h4>Votre profil</h4></li>';
-      foreach ($variable as $key => $value) {
+      foreach ($variable as $value) {
         echo '<li>Identité : '.$value['prenom'].' '.$value['nom'].'</li>';
         echo '<li>Pseudo : '.$value['login'].'</li>';
         echo '<li>Role : '.$this->role[$value['role']]['name'].'</li>';
+        echo '<li>Email : '.$value['email'].'</li>';
         echo '<li class="alignLi">Date d\'inscription : <p class="displayDate">'.brassageDate($value['dateCreation']).'</p></li>';
       }
     echo '</ul>';
@@ -89,7 +90,7 @@ private $yes;
          ///$displayValide = 'Non valide';
          echo '<ul class="listClass">';
          echo '<li><h4>'.$displayValide[$valide].'</h4></li>';
-         foreach ($dataRoles as $key => $value) {
+         foreach ($dataRoles as  $value) {
            echo '<li>Type = '.$value['typeRole'].' Accréditation = '.$value['accreditation'].'</li>';
          }
          echo '</ul>';

@@ -57,7 +57,7 @@ Class PrintNavigation extends GetNavigation {
   public function selectZoneMenu($variable, $dataTarget) {
     echo '<label for="zoneMenu">Zone du menu</label>
           <select id="zoneMenu" name="zoneMenu">
-          <option value="0">Bandeau de navigation</option>';
+          <option value="0">Page invisible dans les menus</option>';
           foreach ($variable  as $value) {
             if($value['idMenuDeroulant'] == $dataTarget) {
               echo '<option value="'.$value['idMenuDeroulant'].'" selected>'.$value['titreMenu'].'</option>';
