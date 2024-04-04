@@ -131,7 +131,19 @@ a {
  .down {
   margin-top: 15vh;
  }
+.box {
+  background-color: var(--color-blueOneChair);
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+  border-radius: var(--main-radius);
+  border: 1px solid var(--main-color-interne);
+  box-shadow: rgba(5, 197, 223, 0.836) 0px 1px 3px, rgba(65, 126, 218, 0.863) 0px 1px 2px;
 
+}
 /*Flex*/
 .hoursOfShopping {
   display: flex;

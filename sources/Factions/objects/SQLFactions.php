@@ -82,4 +82,14 @@ Class SQLFactions  {
                     WHERE `id` =:idFaction AND `id_Author`=:idUser;";
         return ActionDB::select($select, $param, 1);
     }
+    public function updateFactionByUser ($param) {
+        $update = "UPDATE `factions` 
+        SET `name_Factions`=:name_Factions,`id_Universe`=:id_Universe, `date_Update`= CURRENT_TIMESTAMP,`valid`=:valid 
+        WHERE `id` = :id AND `id_Author`=:idUser ";
+        return ActionDB::access($update, $param, 1);
+    }
+    public function deleteFactionByUser ($param) {
+        $delete = "DELETE FROM `factions` WHERE `id` = :id AND `valid` = 0 AND `id_Author`=:idUser;";
+        return ActionDB::access($delete, $param, 1);
+    }
 }

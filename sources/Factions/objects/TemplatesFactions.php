@@ -20,7 +20,7 @@ Class TemplateFactions extends SQLFactions {
         $id_Author = $this->getIdUser ();
         $dataUnivers = $this->selectUniversOfOneUser($id_Author, 1);
         if(!empty($dataUnivers)) {
-            // encodeRoutage(68)
+            echo '<article class="box">';
             echo  '<h2 class="subTitleSite">Add a new faction</h2>';
             echo '<form class="formulaireClassique" action='.encodeRoutage(68).' method="post">';
                     echo '<label for="id_Universe">Faction universe</label>';
@@ -32,7 +32,8 @@ Class TemplateFactions extends SQLFactions {
                     echo '<label for="name_Factions">Name of new faction</label>';
                     echo '<input type="text" id="name_Factions" name="name_Factions" placeholder="name of new faction" required/>';
                     echo '<button type="submit" name="idNav" value="'.$idNav.'">Creat new faction</button>'; 
-            echo '</form>';
+            echo '</form></article>';
+
         } else {
             echo '<h2 class="subTitleSite">No universe find</h2>';
         }
@@ -49,18 +50,19 @@ Class TemplateFactions extends SQLFactions {
 
         }
         foreach($universes as $key => $value) {
+            echo '<article class="box">';
             echo '<ul class="listNoStyle">';
             echo '<li><h2 class="subTitleSite">'.$key.' : '.count($value).'/'.$this->numberMaxOfFactionsForOneUniverses.' factions created</h2></li>';
-           
             for ($i=0; $i <count($value) ; $i++) { 
                 echo '<li>'.$value[$i]['nameFaction'].'</li>';
-         
             }
             echo '</ul>';
+            echo '</article>';
         }
      
     }
     public function displayAdminFactionsByUser($valid) {
+        
         if($valid == 1) {
             $title = '<h2 class="subTitleSite">Valid factions</h2>';
         } else {
@@ -77,7 +79,9 @@ Class TemplateFactions extends SQLFactions {
 
         }
         if(!empty($data)) {echo $title;}
+        
         foreach($universes as $key => $value) {
+            echo '<article class="box">';
             echo '<ul class="listNoStyle">';
             echo '<li><h2 class="subTitleSite">'.$key.' : '.count($value).'/'.$this->numberMaxOfFactionsForOneUniverses.' factions created</h2></li>';
             for ($i=0; $i <count($value) ; $i++) { 
@@ -85,15 +89,24 @@ Class TemplateFactions extends SQLFactions {
          
             }
             echo '</ul>';
+            echo '</article>';
         }
+    
+    }
+    public function delFactionByUser ($idFaction, $idNav, $targetRoute) {
+        echo '<form class="formulaireClassique" action='.encodeRoutage($targetRoute).' method="post">';
+        echo '<input type="hidden" name="id" value="'.$idFaction.'"/>';
+        echo '<button type="submit" name="idNav" value="'.$idNav.'">Delete faction</button>'; 
+
     }
     public function updateFormFaction ($idFaction, $idNav) {
         $dataFaction = $this->getOneFaction ($idFaction);
         $id_Author = $this->getIdUser ();
         $dataUnivers = $this->selectUniversOfOneUser($id_Author, 1);
             // encodeRoutage(68)
-            echo  '<h2 class="subTitleSite">Add a new faction</h2>';
-            echo '<article>
+            echo '<h2 class="subTitleSite">Add a new faction</h2>';
+            echo '<article class="box">
+                    <article>
                     <h3>Informations</h3>
                         <p>Creat date : '.brewingDate($dataFaction[0]['date_Creat']).'</p>
                         <p>Udate date : '.brewingDate($dataFaction[0]['date_Update']).'</p>
@@ -115,6 +128,9 @@ Class TemplateFactions extends SQLFactions {
                     echo '<input type="hidden" name="id" value="'.$dataFaction[0]['id'].'"/>';
                     echo '<button type="submit" name="idNav" value="'.$idNav.'">Update faction</button>'; 
             echo '</form>';
+            if($dataFaction[0]['valid'] == 0) {
+                $this->delFactionByUser ($dataFaction[0]['id'], $idNav, 70);
+            }
      
     }
         
