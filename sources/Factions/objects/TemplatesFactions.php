@@ -133,5 +133,14 @@ Class TemplateFactions extends SQLFactions {
             }
      
     }
+    public function displayAllFactionFormAdmin ($valid) {
+        $dataAllFactions = $this->selectAllFaction ($valid);
+        if(!empty($dataAllFactions)) {
+            print_r($dataAllFactions);
+        } else {
+            echo '<p>No factions in DB.</p>';
+        }
+
+    }
         
 }

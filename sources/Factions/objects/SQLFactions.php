@@ -92,4 +92,14 @@ Class SQLFactions  {
         $delete = "DELETE FROM `factions` WHERE `id` = :id AND `valid` = 0 AND `id_Author`=:idUser;";
         return ActionDB::access($delete, $param, 1);
     }
+    protected function selectAllFaction ($valid) {
+        $select = "SELECT `factions`.`id`, `name_Factions`, `factions`.`date_Creat`, `factions`.`date_Update`, 
+        `factions`.`valid`, `login`
+        FROM `factions`
+        INNER JOIN `universes` ON `universes`.`id` = `id_Universe`
+        INNER JOIN `xgyd0647_techniquer5`.`users` ON `idUser` = `factions`.`id_Author`
+        WHERE `factions`.`valid` = :valid ORDER BY `name_Univers`;";
+        $param =[['prep'=>':valid', 'variable'=>$valid]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

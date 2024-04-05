@@ -11,6 +11,7 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
     public function displayAndAdminOneUnivers ($data, $idNav, $message) {
         echo '<div class="item">';
             echo'<ul class="listeProfil sizeFont">';
+                echo '<li>Owner : '.$data['login'].'</li>';
                 echo '<li class="subTitleSite">Name : '.$data['name_Univers'].'</li>';
                 echo '<li>Creation date : '.brewingDate($data['date_Creat']).'</li>';
                 echo '<li>Technologic level (TL) : '.$data['NT'].' </li>';
