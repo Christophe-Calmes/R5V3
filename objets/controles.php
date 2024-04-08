@@ -18,6 +18,12 @@ class Controles {
     $idUser = ActionDB::select($select, $param);
     return $idUser[0]['idUser'];
   }
+  public function setLoginUser($session) {
+    $param = [['prep'=>':token', 'variable'=>$session['tokenConnexion']]];
+    $select = "SELECT `login` FROM `users` WHERE `token` = :token AND `valide` = 1 ";
+    $idUser = ActionDB::select($select, $param);
+    return $idUser[0]['login'];
+  }
 
   public function controleInteger($data) {
     if (ctype_digit(strval($data))) {

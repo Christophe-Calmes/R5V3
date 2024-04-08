@@ -1,9 +1,33 @@
 <?php
 Class GetUser {
+  public function countUserAdmin ($valide) {
+    $count ="SELECT COUNT(`idUser`) AS `nbr` FROM `users` WHERE `valide` = :valide";
+    $element = [['prep'=>':valide', 'variable'=>$valide]];
+    return ActionDB::select($count, $element);
+  }
+  public function countUserMembres () {
+    $count ="SELECT COUNT(`idUser`) AS `nbr` FROM `users` WHERE `valide` = 1 AND `role` = 1 ";
+    return ActionDB::select($count, []);
+  }
+
   public function getUserCurrentPage($premier, $parPage, $valide) {
-    $select = "SELECT `idUser`, `login`, `role`, `dateCreation`, `valide` FROM `users` WHERE `valide`  = :valide ORDER BY `login` LIMIT {$premier}, {$parPage}";
+    $select = "SELECT `idUser`, `login`, `role`, `dateCreation`, `valide` 
+    FROM `users` 
+    WHERE `valide`  = :valide 
+    ORDER BY `login` 
+    LIMIT {$premier}, {$parPage}";
     $param = [['prep'=>':valide', 'variable'=>$valide]];
     return ActionDB::select($select, $param);
+  }
+  public function getUserMemberPage($premier, $parPage) {
+    $select = "SELECT `idUser`, `login` 
+    FROM `users` 
+    WHERE  `valide` = 1 
+    AND `role` = 1
+    ORDER BY `login` 
+    LIMIT {$premier}, {$parPage}";
+   
+    return ActionDB::select($select, []);
   }
   public function getProfil($token) {
     $select = "SELECT `token`, `email`, `prenom`, `nom`, `login`,`role`, `dateCreation`

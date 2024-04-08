@@ -16,6 +16,7 @@ if(!empty($_SESSION) && ($securiter > 0)) {
   $valeur = $_SESSION['tokenConnexion'];
   $border = $checkId->doublon($sql, $preparation , $valeur);
   // Fin de contrôle Identité
+  echo 'Fin de contrôle Identité<br/>';
 }
 $chemin = $dataRoute[0]['chemin'];
 if($securiter == 0) {
@@ -25,9 +26,14 @@ if($securiter == 0) {
     // Controle champs vide
     $controleForm = array();
     array_push($controleForm, champsVide($_POST));
-      if($controleForm == [0]) { include '../'.$chemin; } else { header('location:../index.php?message=Un ou plusieurs champs sont vide.'); }
+    print_r($controleForm);
+      if($controleForm == [0]) { 
+        print_r($chemin);
+        require('../'.$chemin); 
+      } else { header('location:../index.php?message=Un ou plusieurs champs sont vide.'); }
+      echo 'Coucou le Q !';
   } else {
-    header('location:../../index.php?message=Erreur de traitement');
+    return header('location:../../index.php?message=Erreur de traitement');
   }
 } else  {
             if(($_SESSION['role'] >= $securiter)&&($border == 1)) {
@@ -40,13 +46,14 @@ if($securiter == 0) {
               $controleForm = array();
               array_push($controleForm, champsVide($_POST));
               if($controleForm == [0]) {
-                  include '../'.$chemin;
+                  print_r($chemin);
+                  require ('../'.$chemin);
                 } else {
-                    header('location:../index.php?message=Un ou plusieurs champs sont vide.');
+                    return header('location:../index.php?message=Un ou plusieurs champs sont vide.');
                   }
                 } else {
                   session_destroy();
                   $_SESSION = array();
-                  header('location:../index.php?message=Vous êtes déconnecté');
+                  return header('location:../index.php?message=Vous êtes déconnecté');
                 }
 }

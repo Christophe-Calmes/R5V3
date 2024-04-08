@@ -13,9 +13,7 @@
     $parPage = 5;
     echo '<h3>Liste des utilisateurs | page : '.$currentPage.'</h3>';
     // Nombre d'utilisateurs + Nombre de pages
-    $count ="SELECT COUNT(`idUser`) AS `nbr` FROM `users` WHERE `valide` = :valide";
-    $element = [['prep'=>':valide', 'variable'=>$valide]];
-    $nbr = ActionDB::select($count, $element);
+    $nbr = $users->countUserAdmin ($valide);
     $nbrArticles = $nbr[0]['nbr'];
     $pages = ceil($nbrArticles/$parPage);
     $premier = ($currentPage * $parPage) - $parPage;
@@ -24,6 +22,6 @@
     // Affichage
       $users->userTable($dataUsers, $idNav);
     // Fin affichage
-  for ($page=1; $page <= $pages ; $page++ ) {
-    echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&start='.$page.'">'.$page.'</a>';
-  }
+    for ($page=1; $page <= $pages ; $page++ ) {
+      echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';
+    }

@@ -101,7 +101,6 @@ Class SQLuniversesAndFactions {
         $update = "UPDATE `universes` 
         SET `name_Univers`= :name_Univers,`NT`=:NT, `date_Update`=CURRENT_TIMESTAMP 
         WHERE `id` = :idUniverse AND `id_Author` = :idUser;";
-        print_r($param);
         return ActionDB::access($update, $param, 1);
     }
   

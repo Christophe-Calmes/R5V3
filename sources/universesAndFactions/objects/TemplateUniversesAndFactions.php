@@ -9,9 +9,14 @@ Class TemplateUniversesAndFactions extends SQLuniversesAndFactions {
         $this->yes = ['No', 'Yes'];
     }
     public function displayAndAdminOneUnivers ($data, $idNav, $message) {
+        $login = null;
+        if(!empty($data['login'])) {
+            $login = '<li>Owner : '.$data['login'].'</li>';
+        } 
+
         echo '<div class="item">';
             echo'<ul class="listeProfil sizeFont">';
-                echo '<li>Owner : '.$data['login'].'</li>';
+               echo $login;
                 echo '<li class="subTitleSite">Name : '.$data['name_Univers'].'</li>';
                 echo '<li>Creation date : '.brewingDate($data['date_Creat']).'</li>';
                 echo '<li>Technologic level (TL) : '.$data['NT'].' </li>';

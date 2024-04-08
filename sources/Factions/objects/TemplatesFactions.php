@@ -141,6 +141,5 @@ Class TemplateFactions extends SQLFactions {
             echo '<p>No factions in DB.</p>';
         }
 
-    }
-        
+    }   
 }

@@ -21,7 +21,7 @@ if (password_verify(filter($_POST['mdp']), $dataTraiter[0]['mdp'])) {
                         ['prep'=>':idUser', 'variable'=>$dataTraiter[0]['idUser']],
                         ['prep'=>':login', 'variable'=>$dataTraiter[0]['login']]];
                 ActionDB::access($insert, $log);
-              header('location:../index.php?message=bienvenu '.$_SESSION['login']);
+              return header('location:../index.php?message=bienvenu '.$_SESSION['login']);
 } else {
   $insert="INSERT INTO `journaux`(`ipUser`, `login`, `mdpHacker`)
   VALUES (:ipUser, :login, :mdpHacker)";
@@ -29,5 +29,5 @@ if (password_verify(filter($_POST['mdp']), $dataTraiter[0]['mdp'])) {
           ['prep'=>':login', 'variable'=>filter($_POST['login'])],
           ['prep'=>':mdpHacker', 'variable'=>filter($_POST['mdp'])],];
           ActionDB::access($insert, $log);
-    header('location:../index.php?message=Erreur d\'authentification');
+    return header('location:../index.php?message=Erreur d\'authentification');
 }
